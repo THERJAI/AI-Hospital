@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Health.Ai</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #802BB1, #2D283E, #564F6F, #4C495D,#D1D7E0);
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding-top: 10px; /* Add padding to create space between the text and the top of the page */
+  }
+
+  .header {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .box {
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(to bottom right, #5680E9, #84CEEB, #5AB9EA, #C1C8E4, #8860D0);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 20px;
+    color: white;
+    text-align: center;
+  }
+
+  .button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #5680E9;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .popup input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  .popup button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #5680E9;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      WELCOME TO HEALTH.AI
+    </div>
+    <div class="box">
+      <button class="button" id="loginButton">Log In</button>
+      <button class="button" id="signupButton">Sign Up</button>
+    </div>
+  </div>
+
+  <!-- Login Popup -->
+  <div class="popup" id="loginPopup">
+    <div class="popup-content">
+      <form>
+        <input type="text" name="loginUsername" placeholder="Username">
+        <input type="password" name="loginPassword" placeholder="Password">
+      <button type="button" onclick="window.location.href='templates/index.html'">Log In</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Signup Popup -->
+  <div class="popup" id="signupPopup">
+    <div class="popup-content">
+      <form action="/signup" method="POST">
+        <input type="text" name="signupUsername" placeholder="Username">
+        <input type="password" name="signupPassword" placeholder="Password">
+        <input type="password" name="confirmPassword" placeholder="Confirm Password">
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const loginButton = document.getElementById('loginButton');
+    const signupButton = document.getElementById('signupButton');
+    const loginPopup = document.getElementById('loginPopup');
+    const signupPopup = document.getElementById('signupPopup');
+
+    loginButton.addEventListener('click', () => {
+      loginPopup.style.display = 'block';
+      signupPopup.style.display = 'none';
+    });
+
+    signupButton.addEventListener('click', () => {
+      signupPopup.style.display = 'block';
+      loginPopup.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

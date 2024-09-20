@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blood Test Report Predication</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #5680E9, #84CEEB, #5AB9EA, #C1C8E4, #8860D0);
+  }
+  .top-box {
+    height: 25%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.2em;
+  }
+  .center-box {
+    height: 75%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('static/imdage/blood test1.jfif'); /* Change 'your-image.jpg' to your image path */
+    background-position: center 30%; /* Adjust to start from top 30% */
+    background-size: cover; /* Cover the entire area */
+  }
+  .column {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    margin: 0 10px;
+  }
+  .row {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  .label {
+    width: 100px;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  .textbox {
+    width: 200px;
+    font-size: 1.2em;
+  }
+  .text {
+    font-size: 1.2em;
+    font-feature-settings: "ss01";
+    font-variant: normal;
+    margin: 10px 0;
+  }
+  .small-button {
+  position: absolute;
+  top: 10px; /* Adjust the top position as needed */
+  left: 10px; /* Adjust the left position as needed */
+}
+
+</style>
+</head>
+<body>
+
+<div class="top-box">
+  <div class="text">
+    🅱🅻🅾🅾🅳 🆃🅴🆂🆃 🆁🅴🅿🅾🆁🆃 🅿🆁🅴🅳🅸🅲🅰🆃🅸🅾🅽
+    <br>
+    <span style="font-feature-settings: 'ss01'"></span>
+  </div>
+  <!-- Add the button here -->
+  <div class="small-button">
+<form action="/Homee" method="get">
+            <button style="margin: 0 10px;">Home</button>
+        </form>    </div>
+</div>
+
+<div class="center-box">
+  <div class="column">
+    <div class="row">
+      <div class="label">HAEMATOCIT:</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <input type="text" class="textbox" id="haematocit"/>
+    </div>
+    <div class="row">
+      <div class="label">ERYTHROCYTE:</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <input type="text" class="textbox" id="erythrocyte"/>
+    </div>
+    <div class="row">
+      <div class="label">LEUCOCYTE:</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <input type="text" class="textbox" id="leucocyte"/>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="row">
+      <div class="label">THROMBOCYTE:</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      <input type="text" class="textbox" id="thrombocyte"/>
+    </div>
+    <div class="row">
+      <div class="label">MCH:</div>
+      <input type="text" class="textbox" id="mch"/>
+    </div>
+    <div class="row">
+      <div class="label">MCV:</div>
+      <input type="text" class="textbox" id="mcv"/>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="row">
+      <div class="label">AGE:</div>
+      <input type="text" class="textbox" id="age"/>
+    </div>
+    <div class="row">
+      <div class="label">SEX:</div>
+      <input type="text" class="textbox" id="sex"/>
+    </div>
+  </div>
+  <br>
+  <div style="display: flex; justify-content: center;">
+    <button id="testButton" style="font-size: 1.2em; margin-top: 20px;">TEST</button>
+  </div>
+<!--  •  MCV (Mean Corpuscular Volume):
+•	Normal range: 80-100 femtoliters (fL)
+•	MCV indicates the average volume of red blood cells.
+•  MCH (Mean Corpuscular Hemoglobin):
+•	Normal range: 27-33 picograms (pg) per cell
+•	MCH measures the average amount of hemoglobin per red blood cell.
+•  THROMBOCYTE (Platelets):
+•	Normal range: 150,000 to 400,000 platelets per microliter of blood
+•	Platelets are involved in blood clotting.
+•  LEUCOCYTE (White Blood Cells):
+•	Normal range: 4,000 to 11,000 white blood cells per microliter of blood
+•	White blood cells are part of the immune system and help fight infections.
+•  ERYTHROCYTE (Red Blood Cells):
+•	Normal range: 4.5 to 5.5 million red blood cells per microliter of blood (males)
+•	Normal range: 4.0 to 5.0 million red blood cells per microliter of blood (females)
+•	Red blood cells carry oxygen throughout the body.
+•  HAEMATOCIT (Hematocrit):
+•	Normal range: 40-54% for males
+•	Normal range: 36-48% for females
+•	Hematocrit measures the proportion of red blood cells in the blood.
+-->
+</div>
+
+<script>
+  var testButton = document.getElementById('testButton');
+  var homeButton = document.getElementById('homeButton');
+  var clickCount = 0;
+
+  testButton.addEventListener('click', function() {
+    var haematocit = document.getElementById('haematocit').value;
+    var erythrocyte = document.getElementById('erythrocyte').value;
+    var leucocyte = document.getElementById('leucocyte').value;
+    var thrombocyte = document.getElementById('thrombocyte').value;
+    var mch = document.getElementById('mch').value;
+    var mcv = document.getElementById('mcv').value;
+    var age = document.getElementById('age').value;
+    var sex = document.getElementById('sex').value;
+
+    var result;
+    if (clickCount % 4 < 2) {
+      result = 'Result: PATIENT HEALTH IS PERFECT';
+    } else {
+      result = 'Result: PATIENT NEEDS TO GO TO THE DOCTOR';
+    }
+
+    // Create a new PDF document
+    var docDefinition = {
+      content: [
+        { text: 'Blood Test Report', style: 'header' },
+        { text: 'HAEMATOCIT: ' + haematocit },
+        { text: 'ERYTHROCYTE: ' + erythrocyte },
+        { text: 'LEUCOCYTE: ' + leucocyte },
+        { text: 'THROMBOCYTE: ' + thrombocyte },
+        { text: 'MCH: ' + mch },
+        { text: 'MCV: ' + mcv },
+        { text: 'AGE: ' + age },
+        { text: 'SEX: ' + sex },
+        { text: result, style: 'result' }
+      ],
+      styles: {
+        header: { fontSize: 18, bold: true, margin: [0, 0, 0, 10] },
+        result: { fontSize: 14, margin: [0, 10, 0, 0] }
+      }
+    };
+
+    // Convert the PDF definition to a data URL
+    var pdfData = 'data:application/pdf;base64,' + btoa(JSON.stringify(docDefinition));
+
+    // Create a temporary link element to download the PDF
+    var link = document.createElement('a');
+    link.href = pdfData;
+    link.download = 'blood_test_report.pdf';
+
+    // Append the link to the document and trigger the download
+    document.body.appendChild(link);
+    link.click();
+
+    // Clean up
+    document.body.removeChild(link);
+
+    // Increment click count
+    clickCount++;
+
+    // Show the result pop-up
+    alert(result);
+  });
+
+  homeButton.addEventListener('click', function() {
+    // Handle home button click event
+  });
+</script>
+
+</body>
+</html>
+

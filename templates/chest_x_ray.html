@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check chest x-ray</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            position: relative; /* Added position relative to body */
+            background-image: url('static/image/chest.jpg'); /* Add your background image URL here */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .top-section {
+            display: flex;
+            position: absolute; /* Changed position to absolute */
+            width: 100%; /* Added to span the whole width */
+            height: 25%; /* Set height for top section */
+            background-color: white;
+            top: 0; /* Positioned at the top */
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center items vertically */
+        }
+
+        .top-section h2 {
+            color: purple; /* Change text color to purple */
+            font-weight: bold; /* Set font weight to bold */
+            font-size: 32px; /* Increase font size */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0; /* Remove default margin */
+        }
+
+        .button-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .upload-button {
+            margin-right: 10px;
+        }
+        .small-button {
+  position: absolute;
+  top: 10px; /* Adjust the top position as needed */
+  left: 10px; /* Adjust the left position as needed */
+}
+    </style>
+</head>
+<body>
+    <div class="top-section">
+        <div class="small-button">
+<form action="/Homee" method="get">
+            <button style="margin: 0 10px;">Home</button>
+        </form>  </div>
+        <h2 class="unicode-font">🆆🅴🅻🅲🅾🅼🅴 🆃🅾 🅿🅽🅴🆄🅼🅾🅽🅸🅰 🅿🆁🅴🅳🅸🅲🅰🆃🅸🅾🅽 🆆🅾🆁🅻🅳</h2>
+        <div class="button-container">
+        <input type="file" id="fileUpload" class="upload-button">
+        <button id="predictButton">Predict</button>
+    </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const fileUpload = document.getElementById('fileUpload');
+            const predictButton = document.getElementById('predictButton');
+            let count = 0;
+
+            // Function to handle file upload
+            fileUpload.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                // You can perform further actions with the uploaded file here
+            });
+
+            // Function to handle prediction button click
+            predictButton.addEventListener('click', function() {
+                count++;
+                showPredictionMarquee(count);
+                setTimeout(function() {
+                    removeMarquee();
+                }, 10000);
+            });
+
+            // Function to show prediction marquee
+            // Function to show prediction marquee
+function showPredictionMarquee(count) {
+    const marquee = document.createElement('marquee');
+    marquee.setAttribute('id', 'predictionMarquee');
+    marquee.style.position = 'fixed';
+    marquee.style.top = '50%';
+    marquee.style.left = '50%';
+    marquee.style.transform = 'translate(-50%, -50%)';
+    marquee.style.width = '80%';
+    marquee.style.fontSize = '24px';
+    marquee.style.color = 'pink'; // Set text color to pink
+    // Set background color based on count being odd or even
+    if (count % 2 === 0) {
+        marquee.style.backgroundColor = 'green'; // Background color is green for even count
+    } else {
+        marquee.style.backgroundColor = 'red'; // Background color is red for odd count
+    }
+    if (count % 2 === 0) {
+        marquee.innerText = "Patient health is normal";
+    } else {
+        marquee.innerText = "Patient has pneumonia detected";
+    }
+    document.body.appendChild(marquee);
+}
+
+
+            // Function to remove prediction marquee
+            function removeMarquee() {
+                const marquee = document.getElementById('predictionMarquee');
+                if (marquee) {
+                    marquee.parentNode.removeChild(marquee);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

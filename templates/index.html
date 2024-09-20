@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Prediction</title>
+    <style>
+        /* Add your CSS styles here */
+        .header {
+            border-bottom: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            background-color: #1e90ff; /* Dark blue */
+            color: white; /* White text color */
+            position: relative; /* Position relative for absolute positioning */
+        }
+        .login {
+            float: right;
+            margin-right: 10px;
+        }
+        .signup {
+            float: right;
+            margin-right: 10px;
+        }
+        .stethoscope-left, .stethoscope-right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px; /* Adjust the width as needed */
+            height: 50px; /* Adjust the height as needed */
+            background-color: white; /* White color */
+            border-radius: 50%;
+        }
+        .stethoscope-left {
+            left: 10px;
+        }
+        .stethoscope-right {
+            right: 10px;
+        }
+        .stethoscope-left:before, .stethoscope-right:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 50%;
+            background-color: pink; /* Pink color */
+            transform: translateX(-50%);
+        }
+        .stethoscope-left:after, .stethoscope-right:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: pink; /* Pink color */
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .content {
+            clear: both; /* Clear floats */
+        }
+        .doctor-box {
+            width: 22%;
+            float: left;
+            margin: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 350px; /* Add a fixed height */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            cursor: pointer; /* Change cursor to pointer for clickable effect */
+        }
+        h2 {
+            color: #800080; /* Purple */
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .centered {
+            text-align: center;
+        }
+
+        /* Pop-up box styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            z-index: 9999;
+        }
+
+        .popup h3 {
+            margin-top: 0;
+        }
+
+        .popup button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="stethoscope-left"></div>
+        <div class="stethoscope-right"></div>
+        <h2>DOCASSIT PREDICTION</h2>
+<!--        <button class="login" onclick="showPopup('loginPopup')" id="loginBtn">Log In</button>-->
+<!--        <button class="signup" onclick="showPopup('signupPopup')" id="signupBtn">Sign Up</button>-->
+<!--        <button style="display: none;" onclick="logout()" id="logoutBtn">Log Out</button> &lt;!&ndash; Initially hidden &ndash;&gt;-->
+
+    </div>
+    <div class="content">
+        <!-- Doctor boxes -->
+        <div class="doctor-box" onclick="showDoctorInfo('doctor1')">
+            <img src="{{ url_for('static', filename='image/download.jpg') }}" alt="Doctor Image">
+            <h3 class="centered">Dr. Tony Stark</h3>
+            <p><b>SPECIALIST:</b> Covid</p>
+            <p><b>Contact:</b> 7069842608</p>
+        </div>
+        <div class="doctor-box" onclick="showDoctorInfo('doctor2')">
+            <img src="{{ url_for('static', filename='image/download (2).jpg') }}" alt="Doctor Image">
+            <h3 class="centered">Dr. Black Widow</h3>
+            <p><b>SPECIALIST:</b> Gastroenterologist</p>
+            <p><b>Contact:</b> 8969842608</p>
+        </div>
+        <div class="doctor-box" onclick="showDoctorInfo('doctor3')">
+            <img src="{{ url_for('static', filename='image/downloadD.png') }}" alt="Doctor Image">
+            <h3 class="centered">Dr. Iron Man</h3>
+            <p><b>SPECIALIST:</b> Ophthalmologist</p>
+            <p><b>Contact:</b> 8869842788</p>
+        </div>
+        <div class="doctor-box" onclick="showDoctorInfo('doctor4')">
+            <img src="{{ url_for('static', filename='image/download (1).jpg') }}" alt="Doctor Image">
+            <h3 class="centered">Dr. Captain America</h3>
+            <p><b>SPECIALIST:</b> Pediatrician</p>
+            <p><b>Contact:</b> 6984256702</p>
+        </div>
+        <!-- Repeat these doctor boxes for the remaining doctors -->
+
+    </div>
+
+    <!-- Horizontal line and buttons -->
+    <div style="width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+        <hr style="width: 20%; margin: 0 10px;">
+        <form action="/chest" method="get">
+        <button type="submit">Check Pnumonai With Chest Xray</button>
+        </form>
+        <form action="/blood" method="get">
+            <button style="margin: 0 10px;">Check Blood Report</button>
+        </form>
+        <form action="/chatbottt" method="get">
+            <button style="margin: 0 10px;">ChatBot</button>
+        </form>
+
+<!--        <button style="margin: 0 10px;" onclick="window.location.href='/check_blood_report'">Check Blood Report</button>-->
+<!--        <button style="margin: 0 10px;" onclick="redirectToChestXRay()">Check Pnumonai With Chest Xray</button>-->
+
+        <hr style="width: 20%; margin: 0 10px;">
+    </div>
+
+    <div class="content">
+        <!-- Doctor boxes -->
+        <div class="doctor-box" onclick="showDoctorInfo('doctor5')">
+            <img src="{{ url_for('static', filename='image/download.jpg') }}" alt="Doctor Image">
+            <h3 class="centered">Dr.Stark Tony</h3>
+            <p><b>SPECIALIST:</b> Allergists</p>
+            <p><b>Contact:</b> 7069842608</p>
+        </div>
+        <div class="doctor-box" onclick="showDoctorInfo('doctor6')">
+            <img src="{{ url_for('static', filename='image/download (2).jpg') }}" alt="Doctor Image">
+            <h3 class="centered">Dr.Widow Black</h3>
+            <p><b>SPECIALIST:</b> Endocrinologists</p>
+            <p><b>Contact:</b> 8969842608</p>
+        </div>
+        <div class="doctor-box" onclick="showDoctorInfo('doctor7')">
+            <img src="{{ url_for('static', filename='image/downloadD.png') }}" alt="Doctor Image">
+            <h3 class="centered">Dr.Man Iron</h3>
+            <p><b>SPECIALIST:</b> Cardiologists</p>
+            <p><b>Contact:</b> 8869842788</p>
+        </div>
+        <div class="doctor-box" onclick="showDoctorInfo('doctor8')">
+            <img src="{{ url_for('static', filename='image/download (1).jpg') }}" alt="Doctor Image">
+            <h3 class="centered">Dr.America Captain</h3>
+            <p><b>SPECIALIST:</b> Dermatologists</p>
+            <p><b>Contact:</b> 6984256702</p>
+        </div>
+        <!-- Repeat these doctor boxes for the remaining doctors -->
+    <div id="loginPopup" class="popup">
+        <h3>Log In</h3>
+        <form action="/login" method="post" onsubmit="return submitForm()">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <button type="submit">Log In</button>
+</form>
+        <button onclick="hidePopup('loginPopup')">Close</button>
+    </div>
+
+
+
+    <div id="signupPopup" class="popup">
+        <h3>Sign Up</h3>
+        <form action="/signup" method="post" onsubmit="return submitForm()">
+        <label for="newUsername">Username:</label>
+        <input type="text" id="newUsername" name="newUsername" required><br><br>
+        <label for="newPassword">Password:</label>
+        <input type="password" id="newPassword" name="newPassword" required><br><br>
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+        <button type="submit">Sign Up</button> <!-- Submit button to submit the sign-up form -->
+        </form>
+        <button onclick="hidePopup('signupPopup')">Close</button>
+    </div>
+    </div>
+    <!-- Pop-up boxes for each doctor -->
+    <!-- Example for one doctor, repeat this structure for each doctor -->
+    <div id="doctor1" class="popup">
+        <h3>Dr. Tony Stark</h3>
+        <img src="{{ url_for('static', filename='image/download.jpg') }}" alt="Doctor Image">
+        <p><b>SPECIALIST:</b> Covid</p>
+        <p><b>Contact:</b> 7069842608</p>
+        <p><b>Exprince:</b>Over two years, Dr. Tony Stark witnessed the relentless toll of COVID-19, navigating through the chaos of overwhelmed hospitals, treating patients with varying degrees of severity. She experienced the emotional strain of comforting families unable to be by their loved ones' sides and the frustration of battling misinformation. Yet, amidst the challenges, she found resilience in her colleagues and the profound satisfaction of saving lives and bringing hope amidst the pandemic's darkest moments.</p>
+        <p><b>Address:</b>Bhat,Ahmedabad</p>
+        <button onclick="hideDoctorInfo('doctor1')">Close</button>
+    </div>
+    <div id="doctor2" class="popup">
+        <h3>Dr. Black Widow</h3>
+        <img src="{{ url_for('static', filename='image/download (2).jpg') }}" alt="Doctor Image">
+        <p><b>SPECIALIST:</b> Gastroenterologist</p>
+        <p><b>Contact:</b> 8969842608</p>
+        <p><b>Exprince:</b>A seasoned gastroenterologist with six years of experience, adept at diagnosing and treating a wide range of gastrointestinal disorders. Proficient in performing endoscopic procedures with precision and skill, providing comprehensive care to patients with conditions such as irritable bowel syndrome, Crohn's disease, and ulcerative colitis. Dedicated to staying updated on the latest advancements in gastroenterology to deliver optimal patient outcomes. Demonstrated expertise in managing complex cases and collaborating with multidisciplinary teams for holistic patient care.</p>
+        <p><b>Address:</b>Sahibag,Ahmedabad</p>
+        <button onclick="hideDoctorInfo('doctor2')">Close</button>
+    </div>
+    <div id="doctor3" class="popup">
+        <h3>Dr. Iron Man</h3>
+        <img src="{{ url_for('static', filename='image/downloadD.png') }}" alt="Doctor Image">
+        <p><b>SPECIALIST:</b> Ophthalmologist</p>
+        <p><b>Contact:</b> 8869842788</p>
+        <p><b>Exprince:</b>An experienced ophthalmologist with six years of dedicated practice, proficient in diagnosing and treating a wide range of eye conditions. Skilled in performing various surgical procedures such as cataract surgery, LASIK, and corneal transplants. Demonstrated expertise in utilizing advanced diagnostic tools to provide accurate assessments and personalized treatment plans. Committed to delivering compassionate care and ensuring optimal visual outcomes for patients.</p>
+        <p><b>Address:</b>ThakarBapa,Nikol</p>
+        <button onclick="hideDoctorInfo('doctor3')">Close</button>
+    </div>
+    <div id="doctor4" class="popup">
+        <h3>Dr. Captain America</h3>
+        <img src="{{ url_for('static', filename='image/download (1).jpg') }}" alt="Doctor Image">
+        <p><b>SPECIALIST:</b> Pediatrician</p>
+        <p><b>Contact:</b> 6984256702</p>
+        <p><b>Exprince:</b>Specializing in pediatric care, Dr. Captain brings three years of invaluable experience to her practice. With a passion for promoting children's health and well-being, she has honed her skills in diagnosing and treating a variety of pediatric conditions. Known for her compassionate approach and dedication to her young patients, Dr. [Name] is committed to providing the highest standard of care to families in need.</p>
+        <p><b>Address:</b>Vastral,Gujrat</p>
+        <button onclick="hideDoctorInfo('doctor4')">Close</button>
+    </div>
+
+    <div id="doctor5" class="popup">
+        <h3>Dr.Stark Tony</h3>
+        <img src="{{ url_for('static', filename='image/download.jpg') }}" alt="Doctor Image">
+        <p><b>SPECIALIST:</b> Allergists</p>
+        <p><b>Contact:</b> 7069842608</p>
+        <p><b>Expreince:</b>In their first year as an allergist, doctors typically gain foundational experience in diagnosing and treating various allergic conditions such as asthma, hay fever, and food allergies. They learn to conduct comprehensive patient evaluations, administer allergy tests, and develop personalized treatment plans including medication management and immunotherapy. Additionally, they collaborate with multidisciplinary teams to address complex cases and stay updated on advancements in allergy research and treatment modalities to provide optimal care to their patients.</p>
+        <p><b>Address:</b>Navrangpura,Ahmedabad</p>
+        <button onclick="hideDoctorInfo('doctor5')">Close</button>
+    </div>
+
+    <div id="doctor6" class="popup">
+        <h3>Dr.Widow Black</h3>
+        <img src="{{ url_for('static', filename='image/download (2).jpg') }}" alt="Doctor Image">
+        <p><b>SPECIALIST:</b> Endocrinologists</p>
+        <p><b>Contact:</b> 8969842608</p>
+        <p><b>Expreince:</b>An Endocrinologist with two years of experience demonstrates proficiency in diagnosing and treating hormonal disorders. They have honed their skills in managing conditions such as diabetes, thyroid disorders, and hormonal imbalances. Their experience includes conducting thorough evaluations, prescribing appropriate medications, and implementing personalized treatment plans to optimize patients' health and well-being. They also possess the ability to effectively communicate with patients, providing education and support for managing their conditions.</p>
+        <p><b>Address:</b>Motera,Ahmedabad</p>
+        <button onclick="hideDoctorInfo('doctor6')">Close</button>
+    </div>
+
+    <div id="doctor7" class="popup">
+        <h3>Dr.Man Iron</h3>
+        <img src="{{ url_for('static', filename='image/downloadD.png') }}" alt="Doctor Image">
+        <p><b>SPECIALIST:</b> Cardiologists</p>
+        <p><b>Contact:</b> 8869842788</p>
+        <p><b>Expreince:</b>A cardiologist with 2 years of experience possesses a foundational understanding of cardiovascular diseases, diagnostics, and treatments. They have honed their skills in interpreting cardiac tests, such as EKGs and echocardiograms, and are adept at managing various cardiac conditions, including hypertension, arrhythmias, and heart failure. During this time, they have likely gained valuable clinical experience, collaborated with multidisciplinary teams, and continued their professional development through ongoing education and training opportunities.</p>
+        <p><b>Address:</b>Paldi,Ahemedaba</p>
+        <button onclick="hideDoctorInfo('doctor7')">Close</button>
+    </div>
+
+    <div id="doctor8" class="popup">
+        <h3>Dr.America Captain</h3>
+        <img src="{{ url_for('static', filename='image/download (1).jpg') }}" alt="Doctor Image">
+        <p><b>SPECIALIST:</b> Dermatologists</p>
+        <p><b>Contact:</b> 6984256702</p>
+        <p><b>Expreince:</b>A dermatologist with two years of experience would have likely gained proficiency in diagnosing and treating a variety of skin conditions, ranging from acne and eczema to more complex issues like skin cancer. They would have honed their skills in conducting thorough skin examinations, performing biopsies when necessary, and prescribing appropriate medications or treatments tailored to individual patient needs. Additionally, they may have started to develop expertise in cosmetic dermatology procedures such as Botox injections, chemical peels, or laser therapy.</p>
+        <p><b>Address:</b>nikol,Naroda</p>
+        <button onclick="hideDoctorInfo('doctor8')">Close</button>
+    </div>
+
+    <div id="loginSuccessPopup" class="popup">
+    <h3>Welcome to HealthCare World</h3>
+    <p>Our goal is to provide information about all the doctors and predict any health problems.</p>
+    <button onclick="hidePopup('loginSuccessPopup')">Close</button>
+</div>
+
+<div id="loginFailPopup" class="popup">
+    <h3>Login Failed</h3>
+    <p>Username or password incorrect. Please try again.</p>
+    <button onclick="hidePopup('loginFailPopup')">Close</button>
+</div>
+    <!-- Repeat these pop-up boxes for the remaining doctors -->
+
+    <!-- JavaScript -->
+    <script>
+        var activeDoctorPopup = null;
+
+
+        function redirectToChestXRay() {
+            window.location.href = '/chest_x_ray.html'; // Change the URL as per your application
+        }
+        // Function to show doctor info popup
+        function showDoctorInfo(doctorId) {
+            var doctorPopup = document.getElementById(doctorId);
+            if (doctorPopup) {
+                if (activeDoctorPopup !== null) {
+                    activeDoctorPopup.style.display = "none";
+                }
+                doctorPopup.style.display = "block";
+                activeDoctorPopup = doctorPopup;
+            }
+        }
+
+        // Function to hide doctor info popup
+        function hideDoctorInfo(doctorId) {
+            var doctorPopup = document.getElementById(doctorId);
+            if (doctorPopup) {
+                doctorPopup.style.display = "none";
+                activeDoctorPopup = null;
+            }
+        }
+
+        // Function to show general pop-up
+        function showPopup(popupId) {
+            var popup = document.getElementById(popupId);
+            if (popup) {
+                popup.style.display = "block";
+            }
+        }
+
+        // Function to hide general pop-up
+        function hidePopup(popupId) {
+            var popup = document.getElementById(popupId);
+            if (popup) {
+                popup.style.display = "none";
+            }
+        }
+
+         var activePopup = null;
+
+    // Function to show pop-up
+    function showPopup(popupId) {
+        var popup = document.getElementById(popupId);
+        if (popup) {
+            if (activePopup !== null && activePopup !== popup) {
+                activePopup.style.display = "none";
+            }
+            popup.style.display = "block";
+            activePopup = popup;
+        }
+    }
+
+    // Function to hide pop-up
+    function hidePopup(popupId) {
+        var popup = document.getElementById(popupId);
+        if (popup) {
+            popup.style.display = "none";
+            activePopup = null;
+        }
+    }
+
+    // Function to show login pop-up
+    function showLoginPopup() {
+        showPopup('loginPopup');
+    }
+
+    // Function to show signup pop-up
+    function showSignupPopup() {
+        showPopup('signupPopup');
+    }
+
+    function showLoginPopup() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        // You can perform validation or send an AJAX request to check the login details here
+        // For demonstration purposes, I'm just displaying the pop-up without validation
+        if (username === "correct_username" && password === "correct_password") {
+            showPopup('loginSuccessPopup'); // Show success pop-up if details are correct
+        } else {
+            showPopup('loginFailPopup'); // Show fail pop-up if details are incorrect
+        }
+    }
+
+    // Function to show success pop-up
+    function showSuccessPopup() {
+        showPopup('loginSuccessPopup');
+    }
+
+    // Function to hide pop-up
+    function hidePopup(popupId) {
+        var popup = document.getElementById(popupId);
+        if (popup) {
+            popup.style.display = "none";
+        }
+    }
+
+    function logout() {
+    // Add logic to handle logout actions here (e.g., clearing session data, redirecting)
+    // For now, let's just reload the page to reset the state
+    location.reload();
+}
+
+// Function to handle login success
+function handleLoginSuccess() {
+    // Hide the login and signup buttons, and show the logout button
+    document.getElementById('loginBtn').style.display = "none";
+    document.getElementById('signupBtn').style.display = "none";
+    document.getElementById('logoutBtn').style.display = "block";
+}
+    </script>
+
+</body>
+</html>

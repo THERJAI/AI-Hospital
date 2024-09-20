@@ -108,7 +108,7 @@ def register():
 
 
 # --------------------------------------------------------------------------------------------------------------------
-openai.api_key = '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'
+openai.api_key = 'YOUR KEY'
 
 
 

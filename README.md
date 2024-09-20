@@ -2,6 +2,7 @@
 <h2>Help of this project You can search specialty wise doctor  , test chest x-ray of pneumonia ,test blood report and talk with your AI health Bot that ask 5 to 6 question and giev You medical chart </h2>
 
 <h5>Register</h5>
+<img src='[image-2](https://github.com/user-attachments/assets/5d82c623-e858-40c0-a9dd-a2e77a4c065d)'>
 [image-2](https://github.com/user-attachments/assets/5d82c623-e858-40c0-a9dd-a2e77a4c065d)
 <h5>Log In</h5>
 ![image-3](https://github.com/user-attachments/assets/0cfe2d03-4e1e-4f9b-a12e-95a303c0e963)

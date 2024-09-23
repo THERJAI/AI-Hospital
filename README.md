@@ -5,7 +5,7 @@
 <img src="https://github.com/user-attachments/assets/5d82c623-e858-40c0-a9dd-a2e77a4c065d" width="100" height="auto" alt="Register">
 <h5>Log In</h5>
 <img src='https://github.com/user-attachments/assets/0cfe2d03-4e1e-4f9b-a12e-95a303c0e963' width="100" height="auto">
-<h5>Home Page</5>
+<h5>Home Page</5><br>
 <img src='https://github.com/user-attachments/assets/7a31267c-f166-402c-aee7-f7f866154ba8'width="100" height="auto">
 <h6>Select Doctor</h6>
 <img src='https://github.com/user-attachments/assets/d93a088b-b536-4be7-8ddc-52db0df21d06'width="100" height="auto">
